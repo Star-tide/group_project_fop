@@ -20,7 +20,7 @@ Follow the steps below to get the project up and running:
 First, clone this repository to your local machine:
 
 ```bash
-git clone https://github.com/yourusername/group_project_fop.git
+git clone https://github.com/Star-tide/group_project_fop.git
 cd group_project_fop
 ```
 
