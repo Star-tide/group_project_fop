@@ -29,14 +29,14 @@ class Sign_up(APIView):
             token = Token.objects.create(user = new_user)
             return Response({"User":new_user.display_name, "Email": new_user.email, "Token":token.key, "Success": "User has been successfully created"}, status=HTTP_201_CREATED)
         except ValidationError as e:
-            print(e)
+            # print(e)
             return Response(e, status=HTTP_400_BAD_REQUEST)
         
 class Log_in(APIView):
     def post(self, request):
         data = request.data.copy()
         user = authenticate(username=data.get("email"), password=data.get("password"))
-        print(user)
+        # print(user)
         if user:
             login(request, user)
             token, created = Token.objects.get_or_create(user = user)
