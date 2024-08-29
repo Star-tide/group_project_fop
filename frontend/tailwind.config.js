@@ -7,7 +7,19 @@ export default {
     extend: {},
   },
   plugins: [
-    daisyui
+    daisyui,
   ],
-};
-
+  daisyui: {
+    themes: [
+      {
+        mytheme: {
+          "primary": "#003049",
+          "secondary": "#f0591a",
+          "accent": "#9bbfc1",
+          "neutral": "#ffffff",
+          "base-100": "#ffffff",
+        },
+      },
+    ],
+  },
+}
