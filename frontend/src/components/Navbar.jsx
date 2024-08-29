@@ -8,12 +8,19 @@ const navigation = [
 export default function Example() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   return (
-    <header className=" bg-secondary">
-      <nav aria-label="Global" className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8">
+    <header className=" bg-primary">
+      <nav
+        aria-label="Global"
+        className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8"
+      >
         <div className="flex flex-1">
           <div className="hidden lg:flex lg:gap-x-12 ">
             {navigation.map((item) => (
-              <a key={item.name} href={item.href} className="text-sm font-semibold leading-6 text-gray-900">
+              <a
+                key={item.name}
+                href={item.href}
+                className="text-sm font-semibold leading-6 text-gray-900"
+              >
                 {item.name}
               </a>
             ))}
@@ -31,15 +38,26 @@ export default function Example() {
         </div>
         <a href="#" className="-m-1.5 p-1.5">
           <span className="sr-only">Your Company</span>
-          <img alt="" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" className="h-8 w-auto" />
+          <img
+            alt=""
+            src=""
+            className="h-8 w-auto"
+          />
         </a>
         <div className="flex flex-1 justify-end">
-          <a href="/login/" className="text-sm font-semibold leading-6 text-gray-900">
+          <a
+            href="/login/"
+            className="text-sm font-semibold leading-6 text-gray-900"
+          >
             Log in <span aria-hidden="true">&rarr;</span>
           </a>
         </div>
       </nav>
-      <Dialog open={mobileMenuOpen} onClose={setMobileMenuOpen} className="lg:hidden">
+      <Dialog
+        open={mobileMenuOpen}
+        onClose={setMobileMenuOpen}
+        className="lg:hidden"
+      >
         <div className="fixed inset-0 z-10" />
         <DialogPanel className="fixed inset-y-0 left-0 z-10 w-full overflow-y-auto bg-white px-6 py-6">
           <div className="flex items-center justify-between">
@@ -62,7 +80,10 @@ export default function Example() {
               />
             </a>
             <div className="flex flex-1 justify-end">
-              <a href="#" className="text-sm font-semibold leading-6 text-gray-900">
+              <a
+                href="#"
+                className="text-sm font-semibold leading-6 text-gray-900"
+              >
                 Log in <span aria-hidden="true">&rarr;</span>
               </a>
             </div>
@@ -81,5 +102,5 @@ export default function Example() {
         </DialogPanel>
       </Dialog>
     </header>
-  )
+  );
 }
