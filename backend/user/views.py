@@ -13,6 +13,9 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.authtoken.models import Token
 from .models import User
+from .serializers import UserSerializer
+from Course_app.models import Course
+from Course_app.serializers import CourseSerializer
 
 class Sign_up(APIView):
 
@@ -53,3 +56,56 @@ class Log_out(TokenReq):
         request.user.auth_token.delete()
         logout(request)
         return Response(status=HTTP_204_NO_CONTENT)
+    
+class Info(APIView):
+    def get(self, request):
+        user = request.user
+        print(user)  # Get the currently authenticated user
+        user_info = UserSerializer(user).data
+        print(user_info)
+        #  Get the courses the user is enrolled in
+        enrolled_courses = Course.objects.filter(enrollment__student_id=user.id)
+        course_serializer = CourseSerializer(enrolled_courses, many=True)
+        
+        data = {
+            'user_info': user_info,
+            'enrolled_courses': course_serializer.data,
+            # 'lessons': lesson_serializer.data
+        }
+
+        return Response(data)
+
+
+# class Info(APIView):
+#     def get(self, request):
+#         user = request.user  # Get the currently authenticated user
+
+#         # Serialize the user's information
+#         user_info = UserSerializer(user).data
+
+#         # Get the courses the user is enrolled in
+#         enrolled_courses = Course.objects.filter(enrollment__student_id=user.id)
+#         course_serializer = CourseSerializer(enrolled_courses, many=True)
+
+#         # Get the lessons associated with the courses the user is enrolled in
+#         # lessons = Lesson_plan.objects.filter(courses__in=enrolled_courses)
+#         # lesson_serializer = LessonPlanSerializer(lessons, many=True)
+
+#         # Combine the data
+#         data = {
+#             'user_info': user_info,
+#             'enrolled_courses': course_serializer.data,
+#             # 'lessons': lesson_serializer.data
+#         }
+
+#         return Response(data)
+    
+''''
+  "User": "eric",
+  "Email": "eric@email.com",
+  "Token": "e0a3c53ac71156a35d459fe847c778619937bafc",
+  "Success": "User has been successfully created"
+}
+
+
+'''
