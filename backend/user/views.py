@@ -13,6 +13,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.authtoken.models import Token
 from .models import User
+from .serializers import UserSerializer
 
 class Sign_up(APIView):
 
@@ -53,3 +54,15 @@ class Log_out(TokenReq):
         request.user.auth_token.delete()
         logout(request)
         return Response(status=HTTP_204_NO_CONTENT)
+    
+class Info(APIView):
+    def get(self, request):
+        user = request.user  # Get the currently authenticated user
+        user_info = UserSerializer(user)  # Pass the user object to the serializer
+        # create a lesson serializer ACCEPTS STUDENT ID then filters data based on ID
+        # create course serializer ACCEPTS STUDENT ID then filters data based on ID
+        # user_lessons, user_courses = DO SOME LOGIC
+        # select * from lessons where studentid in lesson
+        return Response(user_info.data)  # Return the serialized data
+
+
