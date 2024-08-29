@@ -1,8 +1,10 @@
+import Navbar from "./Navbar"
+
 export const Home = () => {
   return (
     <>
-        <button className="btn btn-primary">Hello</button>
-        <div>Home</div>
+        <Navbar />
+        {/* <button className=" btn btn-primary">Hello</button> */}
     </>
   )
 }
