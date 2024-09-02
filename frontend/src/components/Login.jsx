@@ -1,24 +1,39 @@
-import React from 'react'
+import { LogUserIn } from '../utils/auth';
+import { useOutletContext } from 'react-router-dom'
 
 export const Login = () => {
+
+  const { setUser } = useOutletContext();
+
+  
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    let formData = new FormData(event.target)
+    setUser(await LogUserIn(formData))
+  }
+
+
   return (
     <>
-      <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-40 lg:px-8">
+      <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-30 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <img
             alt="Your Company"
-            src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-            className="mx-auto h-10 w-auto"
+            src="/public/CodePlatoonLogo.png"
+            className="mx-auto h-40 w-40"
           />
-          <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
+          <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-secondary">
             Sign in to your account
           </h2>
         </div>
 
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-          <form action="#" method="POST" className="space-y-6">
+          <form onSubmit={handleSubmit} method="POST" className="space-y-6">
             <div>
-              <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
+              <label
+                htmlFor="email"
+                className="block text-sm font-medium leading-6 text-gray-900"
+              >
                 Email address
               </label>
               <div className="mt-2">
@@ -35,11 +50,17 @@ export const Login = () => {
 
             <div>
               <div className="flex items-center justify-between">
-                <label htmlFor="password" className="block text-sm font-medium leading-6 text-gray-900">
+                <label
+                  htmlFor="password"
+                  className="block text-sm font-medium leading-6 text-gray-900"
+                >
                   Password
                 </label>
                 <div className="text-sm">
-                  <a href="#" className="font-semibold text-secondary hover:text-accent">
+                  <a
+                    href="#"
+                    className="font-semibold text-secondary hover:text-accent"
+                  >
                     Forgot password?
                   </a>
                 </div>
@@ -67,13 +88,16 @@ export const Login = () => {
           </form>
 
           <p className="mt-10 text-center text-sm text-gray-500">
-            Not a member?{' '}
-            <a href="#" className="font-semibold leading-6 text-secondary hover:text-accent">
+            Not a member?{" "}
+            <a
+              href="#"
+              className="font-semibold leading-6 text-secondary hover:text-accent"
+            >
               Start a 14 day free trial
             </a>
           </p>
         </div>
       </div>
     </>
-  )
+  );
 }
