@@ -1,6 +1,4 @@
 import { createCourse } from "../utils/utils";
-import { PhotoIcon, UserCircleIcon } from "@heroicons/react/24/solid";
-import { Radio, RadioGroup } from "@headlessui/react";
 
 export const CourseCreation = () => {
     const prerequisites = [
