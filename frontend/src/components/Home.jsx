@@ -1,5 +1,6 @@
 import { useOutletContext } from "react-router-dom"
 import { logOut } from "../utils/auth"
+import { CourseCreation } from "./CourseCreate";
 
 
 export const Home = () => {
@@ -12,8 +13,8 @@ export const Home = () => {
   }
   return (
     <>
-        <div className="container flex flex-col text-center w-60">
-          <h1>Youre Logged In!</h1>
+        <div className="w-100">
+          <CourseCreation />
           <button onClick={handleLogOut}className="btn btn-primary">Logout</button>
         </div>
     </>
