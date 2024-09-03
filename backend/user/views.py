@@ -110,4 +110,11 @@ class Info(APIView):
 }
 
 
+{
+  "User": "no_username",
+  "Email": "test@test.com",
+  "Token": "9fc22d25e0df0658633576116a841465ba02809e",
+  "Success": "User has been successfully created"
+}
+
 '''

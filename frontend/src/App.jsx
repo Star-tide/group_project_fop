@@ -6,6 +6,8 @@ import { Landing } from "./components/Landing";
 
 function App() {
 
+  // TODO: fix use effect so that use object populates
+
   console.log("App.jsx rendered");
   const [user, setUser] = useState(useLoaderData());
   const navigate = useNavigate();
