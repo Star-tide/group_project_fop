@@ -8,7 +8,7 @@ const navigation = [
 export default function Example() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   return (
-    <header className=" bg-secondary -z-20">
+    <header className=" bg-secondary">
       <nav
         aria-label="Global"
         className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8"
