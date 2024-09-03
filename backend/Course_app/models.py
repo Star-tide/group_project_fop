@@ -5,11 +5,11 @@ from django.core import validators as v
 #COURSE_app (Course, Question, Answer)
 class Course(models.Model):
     difficulty = models.IntegerField(validators=[v.MaxValueValidator(3), v.MinValueValidator(1)])
-    title = models.CharField(max_length=20)
-    subcategories = ArrayField(models.CharField())
-    prerequisites = ArrayField(models.CharField())
+    title = models.CharField(max_length=255)
+    subcategories = ArrayField(models.CharField(), default=list, blank=True)
+    prerequisites = ArrayField(models.CharField(), default=list, blank=True)
     course_description = models.TextField(max_length=500)
-    users = models.ManyToManyField(User)
+    #users = models.ManyToManyField(User)
 
 class Question(models.Model):
     course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='questions')

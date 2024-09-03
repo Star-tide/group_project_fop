@@ -8,20 +8,20 @@ class Enrollment(models.Model):
     student_id = models.ForeignKey(User, on_delete= models.CASCADE)
 
 class Certificate_completion(models.Model):
-    name = models.OneToOneField(User, on_delete=models.CASCADE)
+    # name = models.OneToOneField(User, on_delete=models.CASCADE)
     title = models.CharField()
 
 class Lesson_plan(models.Model):
-    user_id = models.ForeignKey(User, on_delete=models.CASCADE)
+    # user_id = models.ForeignKey(User, on_delete=models.CASCADE, default=[])
     title = models.CharField()
     subcategories = ArrayField(models.CharField())
     programming_language = models.CharField()
-    certificate_completion = models.OneToOneField(Certificate_completion, on_delete=models.CASCADE)
-    courses = models.ForeignKey(Course, on_delete=models.CASCADE)
+    #certificate_completion = models.OneToOneField(Certificate_completion, on_delete=models.CASCADE)
+    # courses = models.ForeignKey(Course, on_delete=models.CASCADE, default=[])
 
 class Curriculum(models.Model):
     name = models.CharField()
     description = models.TextField()
-    lesson_plan = models.ForeignKey(Lesson_plan, on_delete=models.CASCADE)
+    # lesson_plan = models.ForeignKey(Lesson_plan, on_delete=models.CASCADE)
 
 

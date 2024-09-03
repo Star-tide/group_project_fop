@@ -66,6 +66,8 @@ class Info(APIView):
         #  Get the courses the user is enrolled in
         enrolled_courses = Course.objects.filter(enrollment__student_id=user.id)
         course_serializer = CourseSerializer(enrolled_courses, many=True)
+
+        
         
         data = {
             'user_info': user_info,
