@@ -1,15 +1,18 @@
-import { Outlet, useLoaderData } from "react-router-dom";
+import { Outlet, useLoaderData, useLocation } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import { useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
+import { Landing } from "./components/Landing";
 
 function App() {
 
-  console.log("App.jsx rendered")
+  console.log("App.jsx rendered");
   const [user, setUser] = useState(useLoaderData());
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const location = useLocation();
+  const isLandingPage = location.pathname === '/';
 
-  console.log(user)
+  console.log(user);
 
   useEffect(() => {
     const publicRoutes = ['/', '/login']
@@ -24,6 +27,7 @@ function App() {
   return (
     <>
     <Navbar />
+    {isLandingPage && <Landing />}
     <Outlet context= {{
       user,
       setUser,
