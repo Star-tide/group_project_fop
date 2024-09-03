@@ -6,7 +6,8 @@ from rest_framework.status import (
     HTTP_200_OK,
     HTTP_204_NO_CONTENT,
     HTTP_201_CREATED,
-    HTTP_400_BAD_REQUEST
+    HTTP_400_BAD_REQUEST,
+    HTTP_404_NOT_FOUND
 )
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.authentication import TokenAuthentication
@@ -31,6 +32,16 @@ class CreateCourse(APIView):
             return Response(new_course.data, status=HTTP_201_CREATED)
         else:
             return Response(new_course.errors, status=HTTP_400_BAD_REQUEST)
+        
+    def delete(self, request):
+        pk = request.data.get('pk')
+        try:
+            course = Course.objects.get(pk=pk)
+            title = course.title
+        except Course.DoesNotExist:
+            return Response({"error": "Course not found"}, status=HTTP_404_NOT_FOUND)
+        course.delete()
+        return Response(f"Course: {title}, Deleted", status=HTTP_204_NO_CONTENT)
 
 
 
