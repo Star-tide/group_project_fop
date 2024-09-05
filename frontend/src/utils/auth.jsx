@@ -13,10 +13,11 @@ export const confirmUser = async () => {
       const response = await api.get("users/account");
       return response.data;
     } catch (error) {
-      return null;
+      console.log("User was not confirmed")
+      return null
     }
   }
-
+  console.log("No token found")
   return null;
 };
 
@@ -29,13 +30,30 @@ export const LogUserIn = async (formData) => {
     if (response.status == 200) {
       let { user, token } = response.data;
       localStorage.setItem("token", token);
-      api.defaults.headers.common["Authorization"] = `token ${token}`;
+      api.defaults.headers.common["Authorization"] = `Token ${token}`;
       return user;
     }
   } catch (error) {
+    console.log("failed loader")
     return error, "Failed to log user in";
   }
 };
+
+export const Signup = async (formData) => {
+  try {
+    api.defaults.headers.common["Authorization"] = ''
+    const response = await api.post("users/signup/", Object.fromEntries(formData));
+    if (response.status == 201) {
+      let {user, token} = response.data;
+      localStorage.setItem("token", token);
+      console.log(token)
+      api.defaults.headers.common["Authorization"] = `Token ${token}`;
+      return user; 
+    }
+  } catch (error) {
+    return error, "Failed to sign up";
+  }
+}
 
 export const logOut =  () => {
     localStorage.removeItem("token")

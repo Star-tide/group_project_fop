@@ -1,15 +1,17 @@
-import { createBrowserRouter } from "react-router-dom";
+ import { createBrowserRouter } from "react-router-dom";
 import { confirmUser } from "./src/utils/auth";
 import { LoginPage } from "./src/Pages/LoginPage"
 import App from "./src/App";
 import { Home } from "./src/components/Home";
+import { SignUp } from "./src/components/Signup";
+import { Landing } from "./src/components/Landing";
 
 
 const router = createBrowserRouter([
   {
     path: "/",
-    loader: confirmUser,
     element: <App />,
+    loader: confirmUser,
     children: [
       {
         path: '/login',
@@ -18,7 +20,15 @@ const router = createBrowserRouter([
       {
         path: "/home",
         element: <Home />
-      }
+      },
+      {
+        path: "/signup",
+        element: <SignUp />
+      },
+      // {
+      //   path: "/landing",
+      //   element: <Landing />
+      // }
     ]
   },
      
