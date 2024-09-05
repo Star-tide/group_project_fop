@@ -22,6 +22,7 @@ class Sign_up(APIView):
     def post(self, request):
         data = request.data.copy()
         data['username'] = request.data.get("username", request.data.get("email"))
+        print(data)
         new_user = User(**data)
         try:
             new_user.full_clean()
@@ -30,9 +31,9 @@ class Sign_up(APIView):
             new_user.save()
             login(request, new_user)
             token = Token.objects.create(user = new_user)
-            return Response({"User":new_user.display_name, "Email": new_user.email, "Token":token.key, "Success": "User has been successfully created"}, status=HTTP_201_CREATED)
+            return Response({"user":new_user.display_name, "email": new_user.email, "token":token.key, "success": "User has been successfully created"}, status=HTTP_201_CREATED)
         except ValidationError as e:
-            # print(e)
+            print(e)
             return Response(e, status=HTTP_400_BAD_REQUEST)
         
 class Log_in(APIView):
@@ -57,7 +58,7 @@ class Log_out(TokenReq):
         logout(request)
         return Response(status=HTTP_204_NO_CONTENT)
     
-class Info(APIView):
+class Info(TokenReq):
     def get(self, request):
         user = request.user
         print(user)  # Get the currently authenticated user
@@ -75,7 +76,7 @@ class Info(APIView):
             # 'lessons': lesson_serializer.data
         }
 
-        return Response(data)
+        return Response(data, status=HTTP_200_OK)
 
 
 # class Info(APIView):
