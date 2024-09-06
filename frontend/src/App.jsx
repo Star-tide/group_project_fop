@@ -40,7 +40,7 @@ function App() {
 
   return (
     <>
-    <Navbar />
+    {/* <Navbar /> */}
     {isLandingPage && <Landing />}
     <Outlet context= {{
       user,
