@@ -1,5 +1,6 @@
 from django.core.exceptions import ValidationError
 from django.contrib.auth import login, logout, authenticate
+from django.shortcuts import get_object_or_404
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.status import (
@@ -12,8 +13,50 @@ from rest_framework.status import (
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.authtoken.models import Token
-from .serializers import CourseSerializer
+from .serializers import CourseSerializer, QuestionSerializer
 from .models import Course
+
+
+# class Question(models.Model):
+#     course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='questions')
+#     learning_content = models.TextField()
+#     prompt = models.TextField()
+#     solution = models.TextField()
+#     is_correct = models.BooleanField(default = False)
+
+class CreateQuestion(APIView):
+
+    def post(self, request):
+            # Parse the incoming data
+            data = request.data
+            
+            # Get the course ID and fetch the course
+            course_id = data.get('id')
+            course = get_object_or_404(Course, id=course_id)
+            
+            # Add course to the data before validation
+            data['course'] = course.id
+            
+            # Initialize the QuestionSerializer with the data
+            serializer = QuestionSerializer(data=data)
+            
+            if serializer.is_valid():
+                # Save the validated data, which creates a new Question
+                serializer.save()
+                
+                # Return the newly created question data as a response
+                return Response(serializer.data, status=HTTP_201_CREATED)
+            
+            # Return a 400 response if validation fails
+            return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
+
+# {
+#     "id": 1,
+#     "prompt": "lalala",
+#     "solution": 5,
+#     "learning_content": "alalalal"
+# }
+
 
 
 # class Course(models.Model):
