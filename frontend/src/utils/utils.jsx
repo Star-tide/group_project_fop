@@ -5,30 +5,42 @@ export const api = axios.create({
 });
 
 export const createCourse = async (formData) => {
-    for (const [key, value] of formData.entries()) {
-      console.log(`${key}: ${value}`);
+  for (const [key, value] of formData.entries()) {
+    console.log(`${key}: ${value}`);
+  }
+  try {
+    const response = await api.post("course/create/", formData);
+    if (response.status == 201) {
+      return true;
     }
-    try {
-        const response = await api.post("course/create/", formData)
-        if(response.status == 201) {
-         return true
-        }
-    } catch(error) {
-        return error, "Failed to Create Course"
-    }
+  } catch (error) {
+    return error, "Failed to Create Course";
+  }
 };
 
 export const deleteCourse = async (id) => {
-    try {
-        const response = await api.delete("course/create/", 
-            {
-                "pk": id
-            }
-        )
-        if(response == 204) {
-            return true
-        }
-    } catch(error) {
-        return error, "Failed to delete course"
+  try {
+    const response = await api.delete("course/create/", {
+      pk: id,
+    });
+    if (response == 204) {
+      return true;
     }
-}
+  } catch (error) {
+    return error, "Failed to delete course";
+  }
+};
+
+export const grabCourseById = async (id) => {
+  try {
+    const response = await api.put("course/create/", {
+      "id": 1,
+    });
+    if (response.status == 200) {
+      return response.data;
+    }
+  } catch (error) {
+    console.log("grabCourseById did not find a course matching that ID");
+    return null;
+  }
+};

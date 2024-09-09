@@ -1,18 +1,16 @@
-import { Signup } from '../utils/auth';
-import { useOutletContext, useNavigate } from 'react-router-dom'
+import { Signup } from "../utils/auth";
+import { useOutletContext, useNavigate } from "react-router-dom";
 
 export const SignUp = () => {
   const navigate = useNavigate();
   const { setUser } = useOutletContext();
 
-  
   const handleSubmit = async (event) => {
     event.preventDefault();
-    let formData = new FormData(event.target)
-    setUser(await Signup(formData))
-    navigate('/')
-  }
-
+    let formData = new FormData(event.target);
+    setUser(await Signup(formData));
+    navigate("/");
+  };
 
   return (
     <>
@@ -30,12 +28,10 @@ export const SignUp = () => {
 
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
           <form onSubmit={handleSubmit} method="POST" className="space-y-6">
-
-          <div>
+            <div>
               <label
                 htmlFor="username"
-                className="block text-sm font-medium leading-6 text-gray-900"
-              >
+                className="block text-sm font-medium leading-6 text-gray-900">
                 Username
               </label>
               <div className="mt-2">
@@ -52,8 +48,7 @@ export const SignUp = () => {
             <div>
               <label
                 htmlFor="email"
-                className="block text-sm font-medium leading-6 text-gray-900"
-              >
+                className="block text-sm font-medium leading-6 text-gray-900">
                 Email address
               </label>
               <div className="mt-2">
@@ -72,15 +67,13 @@ export const SignUp = () => {
               <div className="flex items-center justify-between">
                 <label
                   htmlFor="password"
-                  className="block text-sm font-medium leading-6 text-gray-900"
-                >
+                  className="block text-sm font-medium leading-6 text-gray-900">
                   Password
                 </label>
                 <div className="text-sm">
                   <a
                     href="#"
-                    className="font-semibold text-secondary hover:text-accent"
-                  >
+                    className="font-semibold text-secondary hover:text-accent">
                     Forgot password?
                   </a>
                 </div>
@@ -100,8 +93,7 @@ export const SignUp = () => {
             <div>
               <button
                 type="submit"
-                className="flex w-full justify-center rounded-md bg-primary px-3 py-1.5 text-sm font-semibold leading-6 text-accent shadow-sm hover:bg-secondary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-              >
+                className="flex w-full justify-center rounded-md bg-primary px-3 py-1.5 text-sm font-semibold leading-6 text-accent shadow-sm hover:bg-secondary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
                 Sign up
               </button>
             </div>
@@ -111,8 +103,7 @@ export const SignUp = () => {
             Not a member?{" "}
             <a
               href="#"
-              className="font-semibold leading-6 text-secondary hover:text-accent"
-            >
+              className="font-semibold leading-6 text-secondary hover:text-accent">
               Start a 14 day free trial
             </a>
           </p>
@@ -120,4 +111,4 @@ export const SignUp = () => {
       </div>
     </>
   );
-}
+};

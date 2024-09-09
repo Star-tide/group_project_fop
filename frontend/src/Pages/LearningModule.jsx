@@ -1,7 +1,12 @@
-'use client'
+"use client";
 import Editor from "@monaco-editor/react";
-import { useState, useRef } from 'react'
-import { Dialog, DialogBackdrop, DialogPanel, TransitionChild } from '@headlessui/react'
+import { useState, useRef } from "react";
+import {
+  Dialog,
+  DialogBackdrop,
+  DialogPanel,
+  TransitionChild,
+} from "@headlessui/react";
 import {
   Bars3Icon,
   CalendarIcon,
@@ -11,23 +16,24 @@ import {
   HomeIcon,
   UsersIcon,
   XMarkIcon,
-} from '@heroicons/react/24/outline'
+} from "@heroicons/react/24/outline";
+import { Pagination } from "../components/Pagination";
 
 const navigation = [
-  { name: 'Dashboard', href: '#', icon: HomeIcon, current: true },
-  { name: 'Team', href: '#', icon: UsersIcon, current: false },
-  { name: 'Projects', href: '#', icon: FolderIcon, current: false },
-  { name: 'Calendar', href: '#', icon: CalendarIcon, current: false },
-  { name: 'Documents', href: '#', icon: DocumentDuplicateIcon, current: false },
-  { name: 'Reports', href: '#', icon: ChartPieIcon, current: false },
-]
+  { name: "Dashboard", href: "#", icon: HomeIcon, current: true },
+  { name: "Team", href: "#", icon: UsersIcon, current: false },
+  { name: "Projects", href: "#", icon: FolderIcon, current: false },
+  { name: "Calendar", href: "#", icon: CalendarIcon, current: false },
+  { name: "Documents", href: "#", icon: DocumentDuplicateIcon, current: false },
+  { name: "Reports", href: "#", icon: ChartPieIcon, current: false },
+];
 
 function classNames(...classes) {
-  return classes.filter(Boolean).join(' ')
+  return classes.filter(Boolean).join(" ");
 }
 
 export function LearningModule() {
-  const [sidebarOpen, setSidebarOpen] = useState(false)
+  const [sidebarOpen, setSidebarOpen] = useState(false);
   const editorRef = useRef(null);
 
   function handleEditorDidMount(editor, monaco) {
@@ -35,8 +41,8 @@ export function LearningModule() {
   }
 
   const handleEditorChange = () => {
-    console.log(eval(editorRef.current.getValue()))
-  }
+    console.log(eval(editorRef.current.getValue()));
+  };
 
   let code = `
   function question () {
@@ -45,7 +51,7 @@ export function LearningModule() {
 
     return };
   question()
-  `
+  `;
 
   return (
     <>
@@ -58,7 +64,10 @@ export function LearningModule() {
         ```
       */}
       <div>
-        <Dialog open={sidebarOpen} onClose={setSidebarOpen} className="relative z-50 lg:hidden">
+        <Dialog
+          open={sidebarOpen}
+          onClose={setSidebarOpen}
+          className="relative z-50 lg:hidden">
           <DialogBackdrop
             transition
             className="fixed inset-0 bg-gray-900/80 transition-opacity duration-300 ease-linear data-[closed]:opacity-0"
@@ -67,13 +76,18 @@ export function LearningModule() {
           <div className="fixed inset-0 flex">
             <DialogPanel
               transition
-              className="relative mr-16 flex w-full max-w-xs flex-1 transform transition duration-300 ease-in-out data-[closed]:-translate-x-full"
-            >
+              className="relative mr-16 flex w-full max-w-xs flex-1 transform transition duration-300 ease-in-out data-[closed]:-translate-x-full">
               <TransitionChild>
                 <div className="absolute left-full top-0 flex w-16 justify-center pt-5 duration-300 ease-in-out data-[closed]:opacity-0">
-                  <button type="button" onClick={() => setSidebarOpen(false)} className="-m-2.5 p-2.5">
+                  <button
+                    type="button"
+                    onClick={() => setSidebarOpen(false)}
+                    className="-m-2.5 p-2.5">
                     <span className="sr-only">Close sidebar</span>
-                    <XMarkIcon aria-hidden="true" className="h-6 w-6 text-white" />
+                    <XMarkIcon
+                      aria-hidden="true"
+                      className="h-6 w-6 text-white"
+                    />
                   </button>
                 </div>
               </TransitionChild>
@@ -94,12 +108,14 @@ export function LearningModule() {
                           href={item.href}
                           className={classNames(
                             item.current
-                              ? 'bg-gray-800 text-white'
-                              : 'text-gray-400 hover:bg-gray-800 hover:text-white',
-                            'group flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6',
-                          )}
-                        >
-                          <item.icon aria-hidden="true" className="h-6 w-6 shrink-0" />
+                              ? "bg-gray-800 text-white"
+                              : "text-gray-400 hover:bg-gray-800 hover:text-white",
+                            "group flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6"
+                          )}>
+                          <item.icon
+                            aria-hidden="true"
+                            className="h-6 w-6 shrink-0"
+                          />
                           {item.name}
                         </a>
                       </li>
@@ -127,11 +143,15 @@ export function LearningModule() {
                   <a
                     href={item.href}
                     className={classNames(
-                      item.current ? 'bg-gray-800 text-white' : 'text-gray-400 hover:bg-gray-800 hover:text-white',
-                      'group flex gap-x-3 rounded-md p-3 text-sm font-semibold leading-6',
-                    )}
-                  >
-                    <item.icon aria-hidden="true" className="h-6 w-6 shrink-0" />
+                      item.current
+                        ? "bg-gray-800 text-white"
+                        : "text-gray-400 hover:bg-gray-800 hover:text-white",
+                      "group flex gap-x-3 rounded-md p-3 text-sm font-semibold leading-6"
+                    )}>
+                    <item.icon
+                      aria-hidden="true"
+                      className="h-6 w-6 shrink-0"
+                    />
                     <span className="sr-only">{item.name}</span>
                   </a>
                 </li>
@@ -141,11 +161,16 @@ export function LearningModule() {
         </div>
 
         <div className="sticky top-0 z-40 flex items-center gap-x-6 bg-gray-900 px-4 py-4 shadow-sm sm:px-6 lg:hidden">
-          <button type="button" onClick={() => setSidebarOpen(true)} className="-m-2.5 p-2.5 text-gray-400 lg:hidden">
+          <button
+            type="button"
+            onClick={() => setSidebarOpen(true)}
+            className="-m-2.5 p-2.5 text-gray-400 lg:hidden">
             <span className="sr-only">Open sidebar</span>
             <Bars3Icon aria-hidden="true" className="h-6 w-6" />
           </button>
-          <div className="flex-1 text-sm font-semibold leading-6 text-white">Dashboard</div>
+          <div className="flex-1 text-sm font-semibold leading-6 text-white">
+            Dashboard
+          </div>
           <a href="#">
             <span className="sr-only">Your profile</span>
             <img
@@ -158,30 +183,39 @@ export function LearningModule() {
 
         <main className="lg:pl-20">
           <div className="xl:pl-96">
-            <div className="h-screen px-4 py-10 sm:px-6 lg:px-8 lg:py-6">{
-              <>
-                <div className="h-3/4">
-                  <Editor
-                  theme="vs-dark"
-                  value={code} // Your initial code value
-                  onChange={handleEditorChange} // Function to handle code changes
-                  defaultLanguage="javascript"
-                  onMount={handleEditorDidMount}
-                  />
-                  <button className="bg-secondary absolute right-8 p-4 text-white rounded hover:bg-primary">Submit</button>
-                </div>
-                <div className="h-1/4 w-auto">
-                  <p>This is where output will go</p>
-                </div>
-              </>
-            }</div>
+            <div className="h-screen px-4 py-10 sm:px-6 lg:px-8 lg:py-6">
+              {
+                <>
+                  <div className="h-3/4">
+                    <Editor
+                      theme="vs-dark"
+                      value={code} // Your initial code value
+                      onChange={handleEditorChange} // Function to handle code changes
+                      defaultLanguage="javascript"
+                      onMount={handleEditorDidMount}
+                    />
+                    <button className="bg-secondary absolute right-8 p-4 text-white rounded hover:bg-primary">
+                      Submit
+                    </button>
+                  </div>
+                  <div className="h-1/4 w-auto">
+                    <p>This is where output will go</p>
+                  </div>
+                </>
+              }
+            </div>
           </div>
         </main>
 
         <aside className="fixed inset-y-0 left-20 hidden w-96 border-r border-gray-200 px-4 py-6 sm:px-6 lg:px-4 xl:block whitespace-normal">
-          {<div className="break-words">jgfbshbfsbrvbvahsbhbsvahvskvasvsvvwssfvvsvvsvsvsvsfvsvswwwf</div>}
+          {
+            <div className="break-words">
+              jgfbshbfsbrvbvahsbhbsvahvskvasvsvvwssfvvsvvsvsvsvsfvsvswwwf
+            </div>
+          }
+          <Pagination />
         </aside>
       </div>
     </>
-  )
+  );
 }

@@ -1,25 +1,23 @@
 import { createCourse } from "../utils/utils";
 
 export const CourseCreation = () => {
-    const prerequisites = [
-        { id: null, name: 'None' },
-      ]
+  const prerequisites = [{ id: null, name: "None" }];
 
-    const subcategories = [
-        {id: 1, name: 'Python'},
-        {id: 2, name: 'JavaScript'},
-        {id: 3, name: 'GitHub'},
-    ]
+  const subcategories = [
+    { id: 1, name: "Python" },
+    { id: 2, name: "JavaScript" },
+    { id: 3, name: "GitHub" },
+  ];
 
   const handleSubmit = async (ev) => {
     /*
     TODO: need to fix form data, wrong information currently
     */
-    ev.preventDefault()
-    const formdata = new FormData(ev.target)
-    formdata.append('prerequisites', '[]')
-    formdata.append('subcategories', '[]')
-    formdata.append('difficulty', 1)
+    ev.preventDefault();
+    const formdata = new FormData(ev.target);
+    formdata.append("prerequisites", "[]");
+    formdata.append("subcategories", "[]");
+    formdata.append("difficulty", 1);
     await createCourse(formdata);
   };
 
@@ -50,8 +48,7 @@ export const CourseCreation = () => {
               <div className="sm:col-span-4">
                 <label
                   htmlFor="Title"
-                  className="block text-sm font-medium leading-6 text-gray-900"
-                >
+                  className="block text-sm font-medium leading-6 text-gray-900">
                   Title
                 </label>
                 <div className="mt-2">
@@ -70,8 +67,7 @@ export const CourseCreation = () => {
               <div className="col-span-full">
                 <label
                   htmlFor="course_description"
-                  className="block text-sm font-medium leading-6 text-gray-900"
-                >
+                  className="block text-sm font-medium leading-6 text-gray-900">
                   Course Description
                 </label>
                 <div className="mt-2">
@@ -98,13 +94,11 @@ export const CourseCreation = () => {
                   {subcategories.map((side, sideIdx) => (
                     <div
                       key={sideIdx}
-                      className="relative flex items-start py-4"
-                    >
+                      className="relative flex items-start py-4">
                       <div className="min-w-0 flex-1 text-sm leading-6">
                         <label
                           htmlFor={`side-${side.id}`}
-                          className="select-none font-medium text-gray-900"
-                        >
+                          className="select-none font-medium text-gray-900">
                           {side.name}
                         </label>
                       </div>
@@ -164,14 +158,12 @@ export const CourseCreation = () => {
         <div className="mt-6 flex items-center justify-end gap-x-6">
           <button
             type="button"
-            className="text-sm font-semibold leading-6 text-gray-900"
-          >
+            className="text-sm font-semibold leading-6 text-gray-900">
             Cancel
           </button>
           <button
             type="submit"
-            className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-          >
+            className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
             Save
           </button>
         </div>
