@@ -19,6 +19,11 @@ export const Landing = () => {
   const handleClick = () => {
     navigate("/signup/")
   }
+
+  const handleClickLogin = () => {
+    navigate("/login/")
+  }
+
   return (
     <div className="relative isolate px-6 pt-14 lg:px-8">
     {/* <div
@@ -57,8 +62,13 @@ export const Landing = () => {
           >
             Get started
           </a>
-          <a href="#" className="text-sm font-semibold leading-6 text-gray-900">
-            Learn more <span aria-hidden="true">→</span>
+        </div>
+        <div className="mt-10 flex items-center justify-center gap-x-6">
+          <a
+            onClick={handleClickLogin}
+            className="rounded-md bg-primary px-3.5 py-2.5 text-sm font-semibold text-accent shadow-sm hover:bg-secondary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
+          >
+            Login
           </a>
         </div>
       </div>

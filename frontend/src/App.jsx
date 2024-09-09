@@ -10,33 +10,25 @@ function App() {
   // TODO: fix use effect so that use object populates
 
   console.log("App.jsx rendered");
-  const loaderData = useLoaderData();
-  const [user, setUser] = useState(loaderData);
-  console.log("App.jsx user1: ", user)
+  const [user, setUser] = useState(useLoaderData());
+
+  console.log("User from app:", user)
   const navigate = useNavigate();
   const location = useLocation();
   const isLandingPage = location.pathname === '/';
 
-  const fetchUserData = async () => {
-    const user = await confirmUser();
-    setUser(user)
-  };
-
   useEffect(() => {
-    fetchUserData(); // Fetch data every time App.jsx renders
-  }, []); 
-
-  useEffect(() => {
+    console.log('Useeffect line 30')
     const publicRoutes = ['/', '/signup/', '/login/']
       const isPublicRoute = publicRoutes.includes(location.pathname)
-      console.log("Location pathname: ", location.pathname)
-      console.log("App.jsx user2: ", user)
       if(!user && !isPublicRoute){
-        navigate('login') 
+        console.log('tried to route to login from app')
+        navigate('/login') 
       } else if (user && isPublicRoute) {
-        navigate('home')
+        console.log('tried to route to home from app')
+        navigate('/home')
       }
-    },[location.pathname]);
+    },[user, location.pathname]);
 
   return (
     <>

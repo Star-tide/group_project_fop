@@ -35,7 +35,7 @@ export const LogUserIn = async (formData) => {
     }
   } catch (error) {
     console.log("failed loader")
-    return error, "Failed to log user in";
+    return null
   }
 };
 

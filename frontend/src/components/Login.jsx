@@ -4,16 +4,13 @@ import { useOutletContext, useNavigate } from 'react-router-dom'
 export const Login = () => {
 
   const { setUser } = useOutletContext();
-  const navigate = useNavigate();
+  
 
   
   const handleSubmit = async (event) => {
     event.preventDefault();
     let formData = new FormData(event.target)
-    await LogUserIn(formData)
-
-    //  TODO fix this to only do so when user is actually logged in
-    navigate('/')
+    setUser(await LogUserIn(formData))
   }
 
 
