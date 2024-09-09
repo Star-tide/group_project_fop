@@ -1,118 +1,51 @@
-// Tailwind components
+'use client'
+import Editor from "@monaco-editor/react";
+import { useState, useRef } from 'react'
 import { Dialog, DialogBackdrop, DialogPanel, TransitionChild } from '@headlessui/react'
 import {
-    Bars3Icon,
-    CalendarIcon,
-    ChartPieIcon,
-    DocumentDuplicateIcon,
-    FolderIcon,
-    HomeIcon,
-    UsersIcon,
-    XMarkIcon,
+  Bars3Icon,
+  CalendarIcon,
+  ChartPieIcon,
+  DocumentDuplicateIcon,
+  FolderIcon,
+  HomeIcon,
+  UsersIcon,
+  XMarkIcon,
 } from '@heroicons/react/24/outline'
 
-// react import
-import { useState } from 'react'
-import { useOutletContext } from "react-router-dom"
-
-
-// Monoco import
-import Editor from "@monaco-editor/react";
-
-
-export const LearningModule = () => {
-    const navigation = [
-      { name: 'Dashboard', href: '#', icon: HomeIcon, current: true },
-      { name: 'Team', href: '#', icon: UsersIcon, current: false },
-      { name: 'Projects', href: '#', icon: FolderIcon, current: false },
-      { name: 'Calendar', href: '#', icon: CalendarIcon, current: false },
-      { name: 'Documents', href: '#', icon: DocumentDuplicateIcon, current: false },
-      { name: 'Reports', href: '#', icon: ChartPieIcon, current: false },
-    ]
-    const { user } = useOutletContext();
-    const [sidebarOpen, setSidebarOpen] = useState(false)
-  return (
-    <>
-      <main className="w-full h-full grid grid-rows-3 grid-flow-col gap-4">
-        {/* <Dialog open={sidebarOpen} onClose={setSidebarOpen} className="relative z-50 lg:hidden">
-            <DialogBackdrop
-                transition
-                className="fixed inset-0 bg-gray-900/80 transition-opacity duration-300 ease-linear data-[closed]:opacity-0"
-            />
-
-            <div className="fixed inset-0 flex">
-                <DialogPanel
-                transition
-                className="relative mr-16 flex w-full max-w-xs flex-1 transform transition duration-300 ease-in-out data-[closed]:-translate-x-full"
-                >
-                <TransitionChild>
-                    <div className="absolute left-full top-0 flex w-16 justify-center pt-5 duration-300 ease-in-out data-[closed]:opacity-0">
-                    <button type="button" onClick={() => setSidebarOpen(false)} className="-m-2.5 p-2.5">
-                        <span className="sr-only">Close sidebar</span>
-                        <XMarkIcon aria-hidden="true" className="h-6 w-6 text-white" />
-                    </button>
-                    </div>
-                </TransitionChild>
-
-                <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-gray-900 px-6 pb-2 ring-1 ring-white/10">
-                    <div className="flex h-16 shrink-0 items-center">
-                    <img
-                        alt="Your Company"
-                        src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
-                        className="h-8 w-auto"
-                    />
-                    </div>
-                    <nav className="flex flex-1 flex-col">
-                    <ul role="list" className="-mx-2 flex-1 space-y-1">
-                        {navigation.map((item) => (
-                        <li key={item.name}>
-                            <a
-                            href={item.href}
-                            className={classNames(
-                                item.current
-                                ? 'bg-gray-800 text-white'
-                                : 'text-gray-400 hover:bg-gray-800 hover:text-white',
-                                'group flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6',
-                            )}
-                            >
-                            <item.icon aria-hidden="true" className="h-6 w-6 shrink-0" />
-                            {item.name}
-                            </a>
-                        </li>
-                        ))}
-                    </ul>
-                    </nav>
-                </div>
-                </DialogPanel>
-            </div>
-            </Dialog> */}
-        <div className="bg-primary grid grid-rows-3 grid-flow-col gap-4">
-          <div className="bg-primary row-span-3 ...">01</div>
-          <div className="bg-primary col-span-2 ...">
-            <Editor
-              defaultLanguage="javascript"
-              defaultValue="// some comment"
-            />
-          </div>
-          <div className="bg-primary row-span-2 col-span-2 ...">03</div>
-        </div>
-      </main>
-    </>
-  );
-}
-
-
-
-
-'use client'
-
-
+const navigation = [
+  { name: 'Dashboard', href: '#', icon: HomeIcon, current: true },
+  { name: 'Team', href: '#', icon: UsersIcon, current: false },
+  { name: 'Projects', href: '#', icon: FolderIcon, current: false },
+  { name: 'Calendar', href: '#', icon: CalendarIcon, current: false },
+  { name: 'Documents', href: '#', icon: DocumentDuplicateIcon, current: false },
+  { name: 'Reports', href: '#', icon: ChartPieIcon, current: false },
+]
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
-export default function Example() {
+export function LearningModule() {
+  const [sidebarOpen, setSidebarOpen] = useState(false)
+  const editorRef = useRef(null);
+
+  function handleEditorDidMount(editor, monaco) {
+    editorRef.current = editor;
+  }
+
+  const handleEditorChange = () => {
+    console.log(eval(editorRef.current.getValue()))
+  }
+
+  let code = `
+  function question () {
+
+    //your code goes here
+
+    return };
+  question()
+  `
 
   return (
     <>
@@ -125,6 +58,58 @@ export default function Example() {
         ```
       */}
       <div>
+        <Dialog open={sidebarOpen} onClose={setSidebarOpen} className="relative z-50 lg:hidden">
+          <DialogBackdrop
+            transition
+            className="fixed inset-0 bg-gray-900/80 transition-opacity duration-300 ease-linear data-[closed]:opacity-0"
+          />
+
+          <div className="fixed inset-0 flex">
+            <DialogPanel
+              transition
+              className="relative mr-16 flex w-full max-w-xs flex-1 transform transition duration-300 ease-in-out data-[closed]:-translate-x-full"
+            >
+              <TransitionChild>
+                <div className="absolute left-full top-0 flex w-16 justify-center pt-5 duration-300 ease-in-out data-[closed]:opacity-0">
+                  <button type="button" onClick={() => setSidebarOpen(false)} className="-m-2.5 p-2.5">
+                    <span className="sr-only">Close sidebar</span>
+                    <XMarkIcon aria-hidden="true" className="h-6 w-6 text-white" />
+                  </button>
+                </div>
+              </TransitionChild>
+
+              <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-gray-900 px-6 pb-2 ring-1 ring-white/10">
+                <div className="flex h-16 shrink-0 items-center">
+                  <img
+                    alt="Your Company"
+                    src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
+                    className="h-8 w-auto"
+                  />
+                </div>
+                <nav className="flex flex-1 flex-col">
+                  <ul role="list" className="-mx-2 flex-1 space-y-1">
+                    {navigation.map((item) => (
+                      <li key={item.name}>
+                        <a
+                          href={item.href}
+                          className={classNames(
+                            item.current
+                              ? 'bg-gray-800 text-white'
+                              : 'text-gray-400 hover:bg-gray-800 hover:text-white',
+                            'group flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6',
+                          )}
+                        >
+                          <item.icon aria-hidden="true" className="h-6 w-6 shrink-0" />
+                          {item.name}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </nav>
+              </div>
+            </DialogPanel>
+          </div>
+        </Dialog>
 
         {/* Static sidebar for desktop */}
         <div className="hidden lg:fixed lg:inset-y-0 lg:left-0 lg:z-50 lg:block lg:w-20 lg:overflow-y-auto lg:bg-gray-900 lg:pb-4">
@@ -173,12 +158,28 @@ export default function Example() {
 
         <main className="lg:pl-20">
           <div className="xl:pl-96">
-            <div className="px-4 py-10 sm:px-6 lg:px-8 lg:py-6">{/* Main area */}</div>
+            <div className="h-screen px-4 py-10 sm:px-6 lg:px-8 lg:py-6">{
+              <>
+                <div className="h-3/4">
+                  <Editor
+                  theme="vs-dark"
+                  value={code} // Your initial code value
+                  onChange={handleEditorChange} // Function to handle code changes
+                  defaultLanguage="javascript"
+                  onMount={handleEditorDidMount}
+                  />
+                  <button className="bg-secondary absolute right-8 p-4 text-white rounded hover:bg-primary">Submit</button>
+                </div>
+                <div className="h-1/4 w-auto">
+                  <p>This is where output will go</p>
+                </div>
+              </>
+            }</div>
           </div>
         </main>
 
-        <aside className="fixed inset-y-0 left-20 hidden w-96 overflow-y-auto border-r border-gray-200 px-4 py-6 sm:px-6 lg:px-8 xl:block">
-          {/* Secondary column (hidden on smaller screens) */}
+        <aside className="fixed inset-y-0 left-20 hidden w-96 border-r border-gray-200 px-4 py-6 sm:px-6 lg:px-4 xl:block whitespace-normal">
+          {<div className="break-words">jgfbshbfsbrvbvahsbhbsvahvskvasvsvvwssfvvsvvsvsvsvsfvsvswwwf</div>}
         </aside>
       </div>
     </>

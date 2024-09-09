@@ -28,7 +28,7 @@ const router = createBrowserRouter([
       {
         path: "/learn",
         element: <LearningModule />
-      }
+      },
       // {
       //   path: "/landing",
       //   element: <Landing />
