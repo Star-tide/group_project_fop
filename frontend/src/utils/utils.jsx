@@ -34,7 +34,7 @@ export const deleteCourse = async (id) => {
 export const grabCourseById = async (id) => {
   try {
     const response = await api.put("course/create/", {
-      "id": id,
+      "id": 1,
     });
     if (response.status == 200) {
       return response.data;

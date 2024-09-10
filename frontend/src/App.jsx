@@ -17,7 +17,6 @@ function App() {
   const isLandingPage = location.pathname === "/";
 
   useEffect(() => {
-    console.log("Useeffect line 30");
     const publicRoutes = ["/", "/signup/", "/login/"];
     const isPublicRoute = publicRoutes.includes(location.pathname);
     if (!user && !isPublicRoute) {

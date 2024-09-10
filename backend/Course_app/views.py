@@ -124,3 +124,9 @@ class CreateCourse(APIView):
   "course_description": "Learning to code"
 }
 """
+
+class GetAllCourses(APIView):
+    def get(self, request):
+        courses = Course.objects.all()
+        serializer = CourseSerializer(courses, many=True)
+        return Response(serializer.data, status=HTTP_200_OK)

@@ -2,10 +2,16 @@ import { useState } from "react";
 import { useParams } from "react-router-dom"
 import { addQuestionToCourse } from "../utils/utils";
 
-export const AddQuestion = () => {
+export const AddQuestion = ({courseQuestions, setCourseQuestions}) => {
 
     const [loading, setLoading] = useState(false)
     const { course_id } = useParams();
+    // class Question(models.Model):
+    // course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='questions')
+    // learning_content = models.TextField()
+    // prompt = models.TextField()
+    // solution = models.TextField()
+    // is_correct = models.BooleanField(default = False)
 
     const handleSubmit = async (event) => {
       event.preventDefault();
@@ -16,6 +22,14 @@ export const AddQuestion = () => {
       if (success == 1) {
         alert('Question added')
         setLoading(false)
+        let newQuestion = {
+            "course": formData['id'],
+            "learning_content": formData['learning_content'],
+            "prompt": formData['prompt'],
+            "solution": formData['solution'],
+            "is_correct": false 
+        }
+        setCourseQuestions([...courseQuestions, newQuestion])
       }
 
     };
