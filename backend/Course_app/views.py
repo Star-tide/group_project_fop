@@ -28,7 +28,7 @@ class CreateQuestion(APIView):
 
     def post(self, request):
             # Parse the incoming data
-            data = request.data
+            data = request.data.copy()
             
             # Get the course ID and fetch the course
             course_id = data.get('id')
