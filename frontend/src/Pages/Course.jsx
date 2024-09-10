@@ -1,4 +1,5 @@
 import { CourseCard } from "../components/CourseCard"
+import { FetchAllCourses } from "../components/FetchAllCourses";
 
 export const Course = () => {
   // Step1: make an api call to the backend to grab all current courses
@@ -8,7 +9,7 @@ export const Course = () => {
     // })
   return (
     <>
-      <CourseCard course_id={1} />
+      <FetchAllCourses />
     </>
   );
 }

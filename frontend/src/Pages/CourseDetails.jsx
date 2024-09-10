@@ -10,8 +10,7 @@ export const CourseDetails = () => {
   const { course_id } = useParams();
 
   useEffect(() => {
-
-
+    isLoaded
     const getCourseInfo = async () => {
       try {
         const courseDetails = await grabCourseById(course_id);

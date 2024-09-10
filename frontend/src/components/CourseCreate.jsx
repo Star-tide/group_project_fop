@@ -1,7 +1,9 @@
 import { createCourse } from "../utils/utils";
+import { useNavigate } from "react-router-dom";
 
 export const CourseCreation = () => {
   const prerequisites = [{ id: null, name: "None" }];
+  const navigate = useNavigate();
 
   const subcategories = [
     { id: 1, name: "Python" },
@@ -19,6 +21,7 @@ export const CourseCreation = () => {
     formdata.append("subcategories", "[]");
     formdata.append("difficulty", 1);
     await createCourse(formdata);
+    navigate('/courses/')
   };
 
   /*

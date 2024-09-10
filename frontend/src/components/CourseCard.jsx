@@ -1,4 +1,3 @@
-import React from "react";
 import { useEffect, useState } from "react";
 import { grabCourseById } from "../utils/utils";
 import { useNavigate } from "react-router-dom";
@@ -12,14 +11,17 @@ export const CourseCard = (course_id) => {
     navigate(`/course/${course_id["course_id"]}`);
   };
 
+  const handleCourseStart = () => {
+    navigate(`/learn/${course_id['course_id']}`)
+  }
+
   useEffect(() => {
     const fetchCourse = async () => {
       try {
         setLoading(true);
-        const response = await grabCourseById(course_id);
+        const response = await grabCourseById(course_id['course_id']);
         setCourse(response);
       } catch (err) {
-        setError("Failed to fetch course");
         console.error(err);
       } finally {
         setLoading(false);
@@ -33,15 +35,35 @@ export const CourseCard = (course_id) => {
   return (
     <>
       <div className="overflow-hidden rounded-lg bg-gray-200">
-        <div className="px-4 py-5 sm:p-6">
-          {course.title}
-          {course.difficulty}
-          {course.course_description}
+        <div className="flex gap-2 px-4 py-5 sm:p-6">
+          <div>
+            <p>Course Title: {course.title}</p>
+            <p>ID: {course.id}</p>
+
+          </div>
+          <div>
+          <p>Course Difficulty: {course.difficulty}</p>
+
+          </div>
+          <div>
+          <p>Course Description: {course.course_description}</p>
+
+          </div>
+          <div>
           <button
-            onClick={handleViewCourseDetails}
-            className="bg-secondary absolute right-8 p-4 text-white rounded hover:bg-primary">
+            onClick={handleCourseStart}
+            className="bg-primary p-4 text-white rounded hover:bg-secondary mx-2"
+          >
+            Start Course
+          </button>
+          <button
+            onClick={() => handleViewCourseDetails(course_id)}
+            className="bg-secondary p-4 text-white rounded hover:bg-primary"
+          >
             View Course Details
           </button>
+
+          </div>
         </div>
       </div>
     </>

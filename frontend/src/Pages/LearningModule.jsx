@@ -49,7 +49,7 @@ export function LearningModule() {
 
     //your code goes here
 
-    return };
+    return 1 };
   question()
   `;
 
@@ -208,11 +208,6 @@ export function LearningModule() {
         </main>
 
         <aside className="fixed inset-y-0 left-20 hidden w-96 border-r border-gray-200 px-4 py-6 sm:px-6 lg:px-4 xl:block whitespace-normal">
-          {
-            <div className="break-words">
-              jgfbshbfsbrvbvahsbhbsvahvskvasvsvvwssfvvsvvsvsvsvsfvsvswwwf
-            </div>
-          }
           <Pagination />
         </aside>
       </div>
