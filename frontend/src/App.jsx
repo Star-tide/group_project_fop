@@ -1,9 +1,9 @@
 import { Outlet, useLoaderData, useLocation } from "react-router-dom";
-import Navbar from "./components/Navbar";
+// import Navbar from "./components/Navbar";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Landing } from "./components/Landing";
-import { confirmUser } from "./utils/auth";
+// import { confirmUser } from "./utils/auth";
 
 function App() {
   // TODO: fix use effect so that use object populates
@@ -17,7 +17,6 @@ function App() {
   const isLandingPage = location.pathname === "/";
 
   useEffect(() => {
-    console.log("Useeffect line 30");
     const publicRoutes = ["/", "/signup/", "/login/"];
     const isPublicRoute = publicRoutes.includes(location.pathname);
     if (!user && !isPublicRoute) {

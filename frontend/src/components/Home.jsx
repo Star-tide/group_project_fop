@@ -1,6 +1,7 @@
 import { useOutletContext, useNavigate } from "react-router-dom";
 import { logOut } from "../utils/auth";
 import { CourseCreation } from "./CourseCreate";
+import { Navbar } from "./Navbar"
 
 export const Home = () => {
   const navigate = useNavigate();
@@ -13,7 +14,8 @@ export const Home = () => {
   };
   return (
     <>
-      <div className="w-100">
+    <Navbar />
+      <div className="container m-auto">
         <CourseCreation />
         <button onClick={handleLogOut} className="btn btn-primary">
           Logout

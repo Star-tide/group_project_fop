@@ -28,7 +28,7 @@ class CreateQuestion(APIView):
 
     def post(self, request):
             # Parse the incoming data
-            data = request.data
+            data = request.data.copy()
             
             # Get the course ID and fetch the course
             course_id = data.get('id')
@@ -124,3 +124,20 @@ class CreateCourse(APIView):
   "course_description": "Learning to code"
 }
 """
+
+class GetAllCourses(APIView):
+    def get(self, request):
+        courses = Course.objects.all()
+        serializer = CourseSerializer(courses, many=True)
+        return Response(serializer.data, status=HTTP_200_OK)
+
+
+class DeleteCourse(APIView):
+    def delete(self, request, course_id):
+        try:
+            course = Course.objects.get(id=course_id)
+            course.delete()
+            return Response({"message": "Course deleted successfully"}, status=HTTP_204_NO_CONTENT)
+        except Course.DoesNotExist:
+            return Response({"error": "Course not found"}, status=HTTP_404_NOT_FOUND)
+

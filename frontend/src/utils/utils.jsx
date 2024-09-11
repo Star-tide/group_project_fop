@@ -33,14 +33,27 @@ export const deleteCourse = async (id) => {
 
 export const grabCourseById = async (id) => {
   try {
+    id
     const response = await api.put("course/create/", {
-      "id": 1,
+      "id": id,
     });
     if (response.status == 200) {
       return response.data;
     }
   } catch (error) {
-    console.log("grabCourseById did not find a course matching that ID");
+    console.log(error, "grabCourseById did not find a course matching that ID");
     return null;
   }
 };
+
+export const addQuestionToCourse =  async (formData) => {
+  try {
+    const response = await api.post("course/question/", formData)
+
+    if(response.status == 201) {
+      return true
+    }
+  } catch(error) {
+    return error, false
+  }
+}
