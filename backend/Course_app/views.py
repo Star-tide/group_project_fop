@@ -14,7 +14,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.authtoken.models import Token
 from .serializers import CourseSerializer, QuestionSerializer
-from .models import Course
+from .models import Course, Question
 
 
 # class Question(models.Model):
@@ -49,6 +49,16 @@ class CreateQuestion(APIView):
             
             # Return a 400 response if validation fails
             return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
+
+    def delete(self, request, course_id, question_id):
+
+            course = get_object_or_404(Course, id=course_id)#uestion = get_object_or_404(Question, id=question_id)
+            , course=course
+            # Delete the question
+            question.delete()
+            
+            # Return a success response
+            return Response({"message": "Question deleted successfully"}, status=HTTP_204_NO_CONTENT)
 
 # {
 #     "id": 1,
@@ -105,6 +115,8 @@ class CreateCourse(APIView):
         return Response({"Invalid Data Types"}, status=HTTP_400_BAD_REQUEST)
 
 
+
+
 """
 {
   "difficulty": "1",
@@ -140,4 +152,5 @@ class DeleteCourse(APIView):
             return Response({"message": "Course deleted successfully"}, status=HTTP_204_NO_CONTENT)
         except Course.DoesNotExist:
             return Response({"error": "Course not found"}, status=HTTP_404_NOT_FOUND)
+
 

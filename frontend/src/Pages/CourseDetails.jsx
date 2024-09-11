@@ -8,6 +8,11 @@ export const CourseDetails = () => {
   const [isLoaded, setLoaded] = useState(false);
   const [courseQuestions, setCourseQuestions] = useState([]);
   const { course_id } = useParams();
+  const [showform, setShowForm] = useState(false)
+
+  const toggleCard = () = {
+    setShowForm(true)
+  };
 
   useEffect(() => {
     const getCourseInfo = async () => {
@@ -66,20 +71,22 @@ export const CourseDetails = () => {
                   </div>
                   <p>{question.learning_content}</p>
                 </div>
-                <div className="hidden shrink-0 sm:flex sm:flex-col sm:items-end">
-                  <p className="text-sm leading-6">
-                    <button className="btn btn-primary">Edit</button>
-                    <button className="btn btn-danger">Delete</button>
+                <div className="flex gap-2 shrink-0 sm:flex sm:flex-col sm:items-end">
+                  <p className="text-sm leading-6 gap-2">
+                    <button className="btn btn-accent">Delete</button>
                   </p>
                 </div>
               </li>
             ))}
           </ul>
           <div>
+          <button onClick={toggleCard}>{showCard ? "Hide Carrd" : "Show Card"}</button>
+          { showCard && (}
             <AddQuestion 
               courseQuestions={courseQuestions} 
               setCourseQuestions={setCourseQuestions} 
             />
+          })
           </div>
         </div>
       </div>
