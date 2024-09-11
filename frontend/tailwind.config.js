@@ -20,6 +20,7 @@ export default {
           "accent": "#9bbfc1",
           "neutral": "#ffffff",
           "base-100": "#ffffff",
+          "danger": "DC143C"
         },
       },
     ],

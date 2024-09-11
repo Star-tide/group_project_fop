@@ -1,8 +1,10 @@
-'use client'
+"use client";
 
-import { useState } from 'react'
-import { Dialog, DialogPanel } from '@headlessui/react'
-import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
+import { useState } from "react";
+import { useOutletContext, useNavigate } from "react-router-dom";
+import { Dialog, DialogPanel } from "@headlessui/react";
+import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
+import { logOut } from "../utils/auth";
 import {
   AcademicCapIcon,
   CheckCircleIcon,
@@ -11,99 +13,105 @@ import {
   SparklesIcon,
   SunIcon,
   UserGroupIcon,
-} from '@heroicons/react/20/solid'
+} from "@heroicons/react/20/solid";
 
 const navigation = [
-  { name: 'Product', href: '#' },
-  { name: 'Features', href: '#' },
-  { name: 'Marketplace', href: '#' },
-  { name: 'Company', href: '#' },
-]
+  { name: "Home", href: "/home" },
+  { name: "Learning Module", href: "/learn/:course_id" },
+  { name: "Create Course", href: "/create" },
+  { name: "Courses", href: "/courses" },
+];
 const stats = [
-  { label: 'Business was founded', value: '2012' },
-  { label: 'People on the team', value: '120+' },
-  { label: 'Users on the platform', value: '250k' },
-  { label: 'Paid out to creators', value: '$70M' },
-]
+  { label: "Total Cohorts", value: "27" },
+  { label: "Graduates", value: "120+" },
+  { label: "Working Graduates", value: "99.99%" },
+  { label: "6 month to job", value: "80%" },
+];
 const values = [
   {
-    name: 'Be world-class.',
-    description: 'Lorem ipsum, dolor sit amet consectetur adipisicing elit aute id magna.',
+    name: "Be world-class.",
+    description:
+      "Lorem ipsum, dolor sit amet consectetur adipisicing elit aute id magna.",
     icon: RocketLaunchIcon,
   },
   {
-    name: 'Take responsibility.',
-    description: 'Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo.',
+    name: "Take responsibility.",
+    description:
+      "Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo.",
     icon: HandRaisedIcon,
   },
   {
-    name: 'Be supportive.',
-    description: 'Ac tincidunt sapien vehicula erat auctor pellentesque rhoncus voluptas blanditiis et.',
+    name: "Be supportive.",
+    description:
+      "Ac tincidunt sapien vehicula erat auctor pellentesque rhoncus voluptas blanditiis et.",
     icon: UserGroupIcon,
   },
   {
-    name: 'Always learning.',
-    description: 'Iure sed ab. Aperiam optio placeat dolor facere. Officiis pariatur eveniet atque et dolor.',
+    name: "Always learning.",
+    description:
+      "Iure sed ab. Aperiam optio placeat dolor facere. Officiis pariatur eveniet atque et dolor.",
     icon: AcademicCapIcon,
   },
   {
-    name: 'Share everything you know.',
-    description: 'Laudantium tempora sint ut consectetur ratione. Ut illum ut rem numquam fuga delectus.',
+    name: "Share everything you know.",
+    description:
+      "Laudantium tempora sint ut consectetur ratione. Ut illum ut rem numquam fuga delectus.",
     icon: SparklesIcon,
   },
   {
-    name: 'Enjoy downtime.',
-    description: 'Culpa dolorem voluptatem velit autem rerum qui et corrupti. Quibusdam quo placeat.',
+    name: "Enjoy downtime.",
+    description:
+      "Culpa dolorem voluptatem velit autem rerum qui et corrupti. Quibusdam quo placeat.",
     icon: SunIcon,
   },
-]
+];
 const team = [
   {
-    name: 'Leslie Alexander',
-    role: 'Co-Founder / CEO',
+    name: "Leslie Alexander",
+    role: "Co-Founder / CEO",
     imageUrl:
-      'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=1024&h=1024&q=80',
-    location: 'Toronto, Canada',
+      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=1024&h=1024&q=80",
+    location: "Toronto, Canada",
   },
   // More people...
-]
+];
 const benefits = [
-  'Competitive salaries',
-  'Flexible work hours',
-  '30 days of paid vacation',
-  'Annual team retreats',
-  'Benefits for you and your family',
-  'A great work environment',
-]
+  "Competitive salaries",
+  "Flexible work hours",
+  "30 days of paid vacation",
+  "Annual team retreats",
+  "Benefits for you and your family",
+  "A great work environment",
+];
 const footerNavigation = {
   solutions: [
-    { name: 'Marketing', href: '#' },
-    { name: 'Analytics', href: '#' },
-    { name: 'Commerce', href: '#' },
-    { name: 'Insights', href: '#' },
+    { name: "Marketing", href: "#" },
+    { name: "Analytics", href: "#" },
+    { name: "Commerce", href: "#" },
+    { name: "Insights", href: "#" },
   ],
   support: [
-    { name: 'Pricing', href: '#' },
-    { name: 'Documentation', href: '#' },
-    { name: 'Guides', href: '#' },
-    { name: 'API Status', href: '#' },
+    { name: "Pricing", href: "#" },
+    { name: "Documentation", href: "#" },
+    { name: "Guides", href: "#" },
+    { name: "API Status", href: "#" },
   ],
   company: [
-    { name: 'About', href: '#' },
-    { name: 'Blog', href: '#' },
-    { name: 'Jobs', href: '#' },
-    { name: 'Press', href: '#' },
-    { name: 'Partners', href: '#' },
+    { name: "About", href: "#" },
+    { name: "Blog", href: "#" },
+    { name: "Jobs", href: "#" },
+    { name: "Press", href: "#" },
+    { name: "Partners", href: "#" },
   ],
   legal: [
-    { name: 'Claim', href: '#' },
-    { name: 'Privacy', href: '#' },
-    { name: 'Terms', href: '#' },
+    { name: "Claim", href: "#" },
+    { name: "Privacy", href: "#" },
+    { name: "Terms", href: "#" },
   ],
   social: [
     {
-      name: 'Facebook',
-      href: '#',
+      name: "Facebook",
+      href: "#",
       icon: (props) => (
         <svg fill="currentColor" viewBox="0 0 24 24" {...props}>
           <path
@@ -115,8 +123,8 @@ const footerNavigation = {
       ),
     },
     {
-      name: 'Instagram',
-      href: '#',
+      name: "Instagram",
+      href: "#",
       icon: (props) => (
         <svg fill="currentColor" viewBox="0 0 24 24" {...props}>
           <path
@@ -128,8 +136,8 @@ const footerNavigation = {
       ),
     },
     {
-      name: 'X',
-      href: '#',
+      name: "X",
+      href: "#",
       icon: (props) => (
         <svg fill="currentColor" viewBox="0 0 24 24" {...props}>
           <path d="M13.6823 10.6218L20.2391 3H18.6854L12.9921 9.61788L8.44486 3H3.2002L10.0765 13.0074L3.2002 21H4.75404L10.7663 14.0113L15.5685 21H20.8131L13.6819 10.6218H13.6823ZM11.5541 13.0956L10.8574 12.0991L5.31391 4.16971H7.70053L12.1742 10.5689L12.8709 11.5655L18.6861 19.8835H16.2995L11.5541 13.096V13.0956Z" />
@@ -137,8 +145,8 @@ const footerNavigation = {
       ),
     },
     {
-      name: 'GitHub',
-      href: '#',
+      name: "GitHub",
+      href: "#",
       icon: (props) => (
         <svg fill="currentColor" viewBox="0 0 24 24" {...props}>
           <path
@@ -150,8 +158,8 @@ const footerNavigation = {
       ),
     },
     {
-      name: 'YouTube',
-      href: '#',
+      name: "YouTube",
+      href: "#",
       icon: (props) => (
         <svg fill="currentColor" viewBox="0 0 24 24" {...props}>
           <path
@@ -163,23 +171,33 @@ const footerNavigation = {
       ),
     },
   ],
-}
+};
 
-export default function Example() {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+export function Homepage() {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const navigate = useNavigate();
+  const { setUser } = useOutletContext();
+
+  const handleLogOut = () => {
+    setUser(null);
+    console.log(logOut());
+    navigate("/");
+  };
 
   return (
     <div className="bg-gray-900">
       {/* Header */}
       <header className="absolute inset-x-0 top-0 z-50">
-        <nav aria-label="Global" className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8">
+        <nav
+          aria-label="Global"
+          className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8">
           <div className="flex lg:flex-1">
             <a href="#" className="-m-1.5 p-1.5">
               <span className="sr-only">Your Company</span>
               <img
                 alt=""
-                src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
-                className="h-8 w-auto"
+                src="public/logo-png.png"
+                className="h-16 w-auto rounded-full"
               />
             </a>
           </div>
@@ -187,26 +205,34 @@ export default function Example() {
             <button
               type="button"
               onClick={() => setMobileMenuOpen(true)}
-              className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-400"
-            >
+              className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-400">
               <span className="sr-only">Open main menu</span>
               <Bars3Icon aria-hidden="true" className="h-6 w-6" />
             </button>
           </div>
           <div className="hidden lg:flex lg:gap-x-12">
             {navigation.map((item) => (
-              <a key={item.name} href={item.href} className="text-sm font-semibold leading-6 text-white">
+              <a
+                key={item.name}
+                href={item.href}
+                className="text-sm font-semibold leading-6 text-white">
                 {item.name}
               </a>
             ))}
           </div>
           <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-            <a href="#" className="text-sm font-semibold leading-6 text-white">
-              Log in <span aria-hidden="true">&rarr;</span>
+            <a
+              onClick={handleLogOut}
+              href="#"
+              className="text-sm font-semibold leading-6 text-white">
+              Log Out <span aria-hidden="true">&rarr;</span>
             </a>
           </div>
         </nav>
-        <Dialog open={mobileMenuOpen} onClose={setMobileMenuOpen} className="lg:hidden">
+        <Dialog
+          open={mobileMenuOpen}
+          onClose={setMobileMenuOpen}
+          className="lg:hidden">
           <div className="fixed inset-0 z-50" />
           <DialogPanel className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-gray-900 px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-white/10">
             <div className="flex items-center justify-between">
@@ -221,8 +247,7 @@ export default function Example() {
               <button
                 type="button"
                 onClick={() => setMobileMenuOpen(false)}
-                className="-m-2.5 rounded-md p-2.5 text-gray-400"
-              >
+                className="-m-2.5 rounded-md p-2.5 text-gray-400">
                 <span className="sr-only">Close menu</span>
                 <XMarkIcon aria-hidden="true" className="h-6 w-6" />
               </button>
@@ -234,18 +259,17 @@ export default function Example() {
                     <a
                       key={item.name}
                       href={item.href}
-                      className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-white hover:bg-gray-800"
-                    >
+                      className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-white hover:bg-gray-800">
                       {item.name}
                     </a>
                   ))}
                 </div>
                 <div className="py-6">
                   <a
+                    onClick={handleLogOut}
                     href="#"
-                    className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-white hover:bg-gray-800"
-                  >
-                    Log in
+                    className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-white hover:bg-gray-800">
+                    Log out
                   </a>
                 </div>
               </div>
@@ -258,12 +282,11 @@ export default function Example() {
         {/* Background */}
         <div
           aria-hidden="true"
-          className="absolute inset-x-0 top-4 -z-10 flex transform-gpu justify-center overflow-hidden blur-3xl"
-        >
+          className="absolute inset-x-0 top-4 -z-10 flex transform-gpu justify-center overflow-hidden blur-3xl">
           <div
             style={{
               clipPath:
-                'polygon(73.6% 51.7%, 91.7% 11.8%, 100% 46.4%, 97.4% 82.2%, 92.5% 84.9%, 75.7% 64%, 55.3% 47.5%, 46.5% 49.4%, 45% 62.9%, 50.3% 87.2%, 21.3% 64.1%, 0.1% 100%, 5.4% 51.1%, 21.4% 63.9%, 58.9% 0.2%, 73.6% 51.7%)',
+                "polygon(73.6% 51.7%, 91.7% 11.8%, 100% 46.4%, 97.4% 82.2%, 92.5% 84.9%, 75.7% 64%, 55.3% 47.5%, 46.5% 49.4%, 45% 62.9%, 50.3% 87.2%, 21.3% 64.1%, 0.1% 100%, 5.4% 51.1%, 21.4% 63.9%, 58.9% 0.2%, 73.6% 51.7%)",
             }}
             className="aspect-[1108/632] w-[69.25rem] flex-none bg-gradient-to-r from-[#80caff] to-[#4f46e5] opacity-25"
           />
@@ -272,10 +295,13 @@ export default function Example() {
         {/* Header section */}
         <div className="px-6 pt-14 lg:px-8">
           <div className="mx-auto max-w-2xl pt-24 text-center sm:pt-40">
-            <h2 className="text-4xl font-bold tracking-tight text-white sm:text-6xl">We love creators</h2>
+            <h2 className="text-4xl font-bold tracking-tight text-white sm:text-6xl">
+              Foundations of Programming
+            </h2>
             <p className="mt-6 text-lg leading-8 text-gray-300">
-              Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo. Elit sunt amet
-              fugiat veniam occaecat fugiat aliqua.
+              You are about to embark on an intensive 15 week full stack
+              software development bootcamp. Supercharge your preparation with
+              foundations of programming!
             </p>
           </div>
         </div>
@@ -286,35 +312,50 @@ export default function Example() {
             <div className="grid max-w-xl grid-cols-1 gap-8 text-base leading-7 text-gray-300 lg:max-w-none lg:grid-cols-2">
               <div>
                 <p>
-                  Faucibus commodo massa rhoncus, volutpat. Dignissim sed eget risus enim. Mattis mauris semper sed amet
-                  vitae sed turpis id. Id dolor praesent donec est. Odio penatibus risus viverra tellus varius sit neque
-                  erat velit. Faucibus commodo massa rhoncus, volutpat. Dignissim sed eget risus enim. Mattis mauris
-                  semper sed amet vitae sed turpis id.
+                  Welcome to the online module of the "Foundations of
+                  Programming" course! This guide is designed to complement your
+                  live instruction sessions, providing you with essential
+                  resources and hands-on practice to reinforce what you learn in
+                  class. Here, you’ll explore fundamental programming languages
+                  and concepts, ensuring you build a solid foundation for your
+                  software development journey.
                 </p>
                 <p className="mt-8">
-                  Et vitae blandit facilisi magna lacus commodo. Vitae sapien duis odio id et. Id blandit molestie
-                  auctor fermentum dignissim. Lacus diam tincidunt ac cursus in vel. Mauris varius vulputate et ultrices
-                  hac adipiscing egestas.
+                  Each module corresponds to key topics covered in your live
+                  classes and includes interactive exercises, readings, and
+                  additional resources. The modules are designed to be completed
+                  in tandem with your live sessions, allowing you to review and
+                  apply concepts at your own pace.
                 </p>
               </div>
               <div>
                 <p>
-                  Erat pellentesque dictumst ligula porttitor risus eget et eget. Ultricies tellus felis id dignissim
-                  eget. Est augue maecenas risus nulla ultrices congue nunc tortor. Enim et nesciunt doloremque nesciunt
-                  voluptate.
-                </p>
-                <p className="mt-8">
-                  Et vitae blandit facilisi magna lacus commodo. Vitae sapien duis odio id et. Id blandit molestie
-                  auctor fermentum dignissim. Lacus diam tincidunt ac cursus in vel. Mauris varius vulputate et ultrices
-                  hac adipiscing egestas. Iaculis convallis ac tempor et ut. Ac lorem vel integer orci.
+                  <strong>Duration:</strong> Approximately 4 weeks, with an
+                  estimated commitment of 10-15 hours per week. <br />
+                  <br />
+                  <strong>Format:</strong>Format: Self-paced online modules, designed to align with live
+                  instruction.
+                  <br />
+                  This course aims to equip you with the foundational knowledge
+                  you need to thrive in the Code Platoon bootcamp. Whether
+                  you're learning your first programming language or
+                  strengthening your problem-solving skills, this module will be
+                  a valuable resource on your path to becoming a full-stack
+                  developer.
                 </p>
               </div>
             </div>
             <dl className="mt-16 grid grid-cols-1 gap-x-8 gap-y-12 sm:mt-20 sm:grid-cols-2 sm:gap-y-16 lg:mt-28 lg:grid-cols-4">
               {stats.map((stat, statIdx) => (
-                <div key={statIdx} className="flex flex-col-reverse gap-y-3 border-l border-white/20 pl-6">
-                  <dt className="text-base leading-7 text-gray-300">{stat.label}</dt>
-                  <dd className="text-3xl font-semibold tracking-tight text-white">{stat.value}</dd>
+                <div
+                  key={statIdx}
+                  className="flex flex-col-reverse gap-y-3 border-l border-white/20 pl-6">
+                  <dt className="text-base leading-7 text-gray-300">
+                    {stat.label}
+                  </dt>
+                  <dd className="text-3xl font-semibold tracking-tight text-white">
+                    {stat.value}
+                  </dd>
                 </div>
               ))}
             </dl>
@@ -333,19 +374,28 @@ export default function Example() {
         {/* Values section */}
         <div className="mx-auto mt-32 max-w-7xl px-6 sm:mt-40 lg:px-8">
           <div className="mx-auto max-w-2xl lg:mx-0">
-            <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">Our values</h2>
+            <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
+              Our values
+            </h2>
             <p className="mt-6 text-lg leading-8 text-gray-300">
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis suscipit eaque, iste
-              dolor cupiditate blanditiis.
+              Our coding bootcamp prepares you for Code Platoon's immersive
+              program with focused, hands-on training and essential skills
+              development. We provide the foundational knowledge and practical
+              experience needed to excel in Code Platoon's rigorous curriculum,
+              setting you up for success in your journey to becoming a skilled
+              developer.
             </p>
           </div>
           <dl className="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-8 text-base leading-7 text-gray-300 sm:grid-cols-2 lg:mx-0 lg:max-w-none lg:gap-x-16">
             {values.map((value) => (
               <div key={value.name} className="relative pl-9">
                 <dt className="inline font-semibold text-white">
-                  <value.icon aria-hidden="true" className="absolute left-1 top-1 h-5 w-5 text-indigo-500" />
+                  <value.icon
+                    aria-hidden="true"
+                    className="absolute left-1 top-1 h-5 w-5 text-indigo-500"
+                  />
                   {value.name}
-                </dt>{' '}
+                </dt>{" "}
                 <dd className="inline">{value.description}</dd>
               </div>
             ))}
@@ -355,22 +405,33 @@ export default function Example() {
         {/* Team section */}
         <div className="mx-auto mt-32 max-w-7xl px-6 sm:mt-40 lg:px-8">
           <div className="mx-auto max-w-2xl lg:mx-0">
-            <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">Our team</h2>
+            <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
+              Our team
+            </h2>
             <p className="mt-6 text-lg leading-8 text-gray-300">
-              Excepturi repudiandae alias ut. Totam aut facilis. Praesentium in neque vel omnis. Eos error odio. Qui
-              fugit voluptatibus eum culpa.
+              Excepturi repudiandae alias ut. Totam aut facilis. Praesentium in
+              neque vel omnis. Eos error odio. Qui fugit voluptatibus eum culpa.
             </p>
           </div>
           <ul
             role="list"
-            className="mx-auto mt-20 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-14 sm:grid-cols-2 lg:mx-0 lg:max-w-none lg:grid-cols-3 xl:grid-cols-4"
-          >
+            className="mx-auto mt-20 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-14 sm:grid-cols-2 lg:mx-0 lg:max-w-none lg:grid-cols-3 xl:grid-cols-4">
             {team.map((person) => (
               <li key={person.name}>
-                <img alt="" src={person.imageUrl} className="aspect-[14/13] w-full rounded-2xl object-cover" />
-                <h3 className="mt-6 text-lg font-semibold leading-8 tracking-tight text-white">{person.name}</h3>
-                <p className="text-base leading-7 text-gray-300">{person.role}</p>
-                <p className="text-sm leading-6 text-gray-500">{person.location}</p>
+                <img
+                  alt=""
+                  src={person.imageUrl}
+                  className="aspect-[14/13] w-full rounded-2xl object-cover"
+                />
+                <h3 className="mt-6 text-lg font-semibold leading-8 tracking-tight text-white">
+                  {person.name}
+                </h3>
+                <p className="text-base leading-7 text-gray-300">
+                  {person.role}
+                </p>
+                <p className="text-sm leading-6 text-gray-500">
+                  {person.location}
+                </p>
               </li>
             ))}
           </ul>
@@ -386,24 +447,30 @@ export default function Example() {
                 className="h-96 w-full flex-none rounded-2xl object-cover shadow-xl lg:aspect-square lg:h-auto lg:max-w-sm"
               />
               <div className="w-full flex-auto">
-                <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">Join our team</h2>
+                <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
+                  Join our team
+                </h2>
                 <p className="mt-6 text-lg leading-8 text-gray-300">
-                  Lorem ipsum dolor sit amet consect adipisicing elit. Possimus magnam voluptatum cupiditate veritatis
-                  in accusamus quisquam.
+                  Lorem ipsum dolor sit amet consect adipisicing elit. Possimus
+                  magnam voluptatum cupiditate veritatis in accusamus quisquam.
                 </p>
                 <ul
                   role="list"
-                  className="mt-10 grid grid-cols-1 gap-x-8 gap-y-3 text-base leading-7 text-white sm:grid-cols-2"
-                >
+                  className="mt-10 grid grid-cols-1 gap-x-8 gap-y-3 text-base leading-7 text-white sm:grid-cols-2">
                   {benefits.map((benefit) => (
                     <li key={benefit} className="flex gap-x-3">
-                      <CheckCircleIcon aria-hidden="true" className="h-7 w-5 flex-none" />
+                      <CheckCircleIcon
+                        aria-hidden="true"
+                        className="h-7 w-5 flex-none"
+                      />
                       {benefit}
                     </li>
                   ))}
                 </ul>
                 <div className="mt-10 flex">
-                  <a href="#" className="text-sm font-semibold leading-6 text-indigo-400">
+                  <a
+                    href="#"
+                    className="text-sm font-semibold leading-6 text-indigo-400">
                     See our job postings <span aria-hidden="true">&rarr;</span>
                   </a>
                 </div>
@@ -412,12 +479,11 @@ export default function Example() {
           </div>
           <div
             aria-hidden="true"
-            className="absolute inset-x-0 -top-16 -z-10 flex transform-gpu justify-center overflow-hidden blur-3xl"
-          >
+            className="absolute inset-x-0 -top-16 -z-10 flex transform-gpu justify-center overflow-hidden blur-3xl">
             <div
               style={{
                 clipPath:
-                  'polygon(73.6% 51.7%, 91.7% 11.8%, 100% 46.4%, 97.4% 82.2%, 92.5% 84.9%, 75.7% 64%, 55.3% 47.5%, 46.5% 49.4%, 45% 62.9%, 50.3% 87.2%, 21.3% 64.1%, 0.1% 100%, 5.4% 51.1%, 21.4% 63.9%, 58.9% 0.2%, 73.6% 51.7%)',
+                  "polygon(73.6% 51.7%, 91.7% 11.8%, 100% 46.4%, 97.4% 82.2%, 92.5% 84.9%, 75.7% 64%, 55.3% 47.5%, 46.5% 49.4%, 45% 62.9%, 50.3% 87.2%, 21.3% 64.1%, 0.1% 100%, 5.4% 51.1%, 21.4% 63.9%, 58.9% 0.2%, 73.6% 51.7%)",
               }}
               className="aspect-[1318/752] w-[82.375rem] flex-none bg-gradient-to-r from-[#80caff] to-[#4f46e5] opacity-25"
             />
@@ -426,7 +492,9 @@ export default function Example() {
       </main>
 
       {/* Footer */}
-      <footer aria-labelledby="footer-heading" className="relative mt-32 sm:mt-40">
+      <footer
+        aria-labelledby="footer-heading"
+        className="relative mt-32 sm:mt-40">
         <h2 id="footer-heading" className="sr-only">
           Footer
         </h2>
@@ -439,11 +507,15 @@ export default function Example() {
                 className="h-7"
               />
               <p className="text-sm leading-6 text-gray-300">
-                Est error fuga modi error. Laborum eum nobis porro cupiditate et quo.
+                Est error fuga modi error. Laborum eum nobis porro cupiditate et
+                quo.
               </p>
               <div className="flex space-x-6">
                 {footerNavigation.social.map((item) => (
-                  <a key={item.name} href={item.href} className="text-gray-500 hover:text-gray-400">
+                  <a
+                    key={item.name}
+                    href={item.href}
+                    className="text-gray-500 hover:text-gray-400">
                     <span className="sr-only">{item.name}</span>
                     <item.icon aria-hidden="true" className="h-6 w-6" />
                   </a>
@@ -453,11 +525,15 @@ export default function Example() {
             <div className="mt-16 grid grid-cols-2 gap-8 xl:col-span-2 xl:mt-0">
               <div className="md:grid md:grid-cols-2 md:gap-8">
                 <div>
-                  <h3 className="text-sm font-semibold leading-6 text-white">Solutions</h3>
+                  <h3 className="text-sm font-semibold leading-6 text-white">
+                    Solutions
+                  </h3>
                   <ul role="list" className="mt-6 space-y-4">
                     {footerNavigation.solutions.map((item) => (
                       <li key={item.name}>
-                        <a href={item.href} className="text-sm leading-6 text-gray-300 hover:text-white">
+                        <a
+                          href={item.href}
+                          className="text-sm leading-6 text-gray-300 hover:text-white">
                           {item.name}
                         </a>
                       </li>
@@ -465,11 +541,15 @@ export default function Example() {
                   </ul>
                 </div>
                 <div className="mt-10 md:mt-0">
-                  <h3 className="text-sm font-semibold leading-6 text-white">Support</h3>
+                  <h3 className="text-sm font-semibold leading-6 text-white">
+                    Support
+                  </h3>
                   <ul role="list" className="mt-6 space-y-4">
                     {footerNavigation.support.map((item) => (
                       <li key={item.name}>
-                        <a href={item.href} className="text-sm leading-6 text-gray-300 hover:text-white">
+                        <a
+                          href={item.href}
+                          className="text-sm leading-6 text-gray-300 hover:text-white">
                           {item.name}
                         </a>
                       </li>
@@ -479,11 +559,15 @@ export default function Example() {
               </div>
               <div className="md:grid md:grid-cols-2 md:gap-8">
                 <div>
-                  <h3 className="text-sm font-semibold leading-6 text-white">Company</h3>
+                  <h3 className="text-sm font-semibold leading-6 text-white">
+                    Company
+                  </h3>
                   <ul role="list" className="mt-6 space-y-4">
                     {footerNavigation.company.map((item) => (
                       <li key={item.name}>
-                        <a href={item.href} className="text-sm leading-6 text-gray-300 hover:text-white">
+                        <a
+                          href={item.href}
+                          className="text-sm leading-6 text-gray-300 hover:text-white">
                           {item.name}
                         </a>
                       </li>
@@ -491,11 +575,15 @@ export default function Example() {
                   </ul>
                 </div>
                 <div className="mt-10 md:mt-0">
-                  <h3 className="text-sm font-semibold leading-6 text-white">Legal</h3>
+                  <h3 className="text-sm font-semibold leading-6 text-white">
+                    Legal
+                  </h3>
                   <ul role="list" className="mt-6 space-y-4">
                     {footerNavigation.legal.map((item) => (
                       <li key={item.name}>
-                        <a href={item.href} className="text-sm leading-6 text-gray-300 hover:text-white">
+                        <a
+                          href={item.href}
+                          className="text-sm leading-6 text-gray-300 hover:text-white">
                           {item.name}
                         </a>
                       </li>
@@ -506,10 +594,12 @@ export default function Example() {
             </div>
           </div>
           <div className="mt-16 border-t border-white/10 pt-8 sm:mt-20 lg:mt-24">
-            <p className="text-xs leading-5 text-gray-400">&copy; 2020 Your Company, Inc. All rights reserved.</p>
+            <p className="text-xs leading-5 text-gray-400">
+              &copy; 2020 Your Company, Inc. All rights reserved.
+            </p>
           </div>
         </div>
       </footer>
     </div>
-  )
+  );
 }

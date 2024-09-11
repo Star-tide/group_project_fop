@@ -34,38 +34,36 @@ export const CourseCard = (course_id) => {
   console.log(course);
   return (
     <>
-      <div className="overflow-hidden rounded-lg bg-gray-200">
-        <div className="flex gap-2 px-4 py-5 sm:p-6">
-          <div>
+    {/* Main Div */}
+    <div className="container w-1/2 mx-auto pt-5">
+      <div className="overflow-hidden rounded-lg bg-gray-200 p-4">
+        <div className="flex items-start justify-between">
+          {/* Course info Div */}
+          <div className="flex flex-col gap-2">
             <p>Course Title: {course.title}</p>
             <p>ID: {course.id}</p>
-
+            <p>Course Difficulty: {course.difficulty}</p>
+            <p>Course Description: {course.course_description}</p>
           </div>
-          <div>
-          <p>Course Difficulty: {course.difficulty}</p>
 
-          </div>
-          <div>
-          <p>Course Description: {course.course_description}</p>
-
-          </div>
-          <div>
-          <button
-            onClick={handleCourseStart}
-            className="bg-primary p-4 text-white rounded hover:bg-secondary mx-2"
-          >
-            Start Course
-          </button>
-          <button
-            onClick={() => handleViewCourseDetails(course_id)}
-            className="bg-primary p-4 text-white rounded hover:bg-secondary"
-          >
-            View Course Details
-          </button>
-
+          {/* Button Div */}
+          <div className="flex flex-col gap-2">
+            <button
+              onClick={handleCourseStart}
+              className="bg-primary p-4 text-white rounded hover:bg-secondary"
+            >
+              Start Course
+            </button>
+            <button
+              onClick={() => handleViewCourseDetails(course_id)}
+              className="bg-primary p-4 text-white rounded hover:bg-secondary"
+            >
+              View Course Details
+            </button>
           </div>
         </div>
       </div>
-    </>
+    </div>
+  </>
   );
 };

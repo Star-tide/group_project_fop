@@ -20,15 +20,15 @@ export const AddQuestion = ({courseQuestions, setCourseQuestions}) => {
       setLoading(true)
      const success =  await addQuestionToCourse(formData)
       if (success == 1) {
-        alert('Question added')
         setLoading(false)
         let newQuestion = {
-            "course": formData['id'],
-            "learning_content": formData['learning_content'],
-            "prompt": formData['prompt'],
-            "solution": formData['solution'],
+            "course": formData.get('id'),
+            "learning_content": formData.get("learning_content"),
+            "prompt": formData.get('prompt'),
+            "solution": formData.get('solution'),
             "is_correct": false 
         }
+        console.log(typeof courseQuestions)
         setCourseQuestions([...courseQuestions, newQuestion])
       }
 

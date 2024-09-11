@@ -22,10 +22,6 @@ import { Pagination } from "../components/Pagination";
 const navigation = [
   { name: "Home", href: "/home", icon: HomeIcon, current: true },
   { name: "Courses", href: "/courses/", icon: UsersIcon, current: false },
-  { name: "Projects", href: "#", icon: FolderIcon, current: false },
-  { name: "Calendar", href: "#", icon: CalendarIcon, current: false },
-  { name: "Documents", href: "#", icon: DocumentDuplicateIcon, current: false },
-  { name: "Reports", href: "#", icon: ChartPieIcon, current: false },
 ];
 
 function classNames(...classes) {
@@ -132,8 +128,8 @@ export function LearningModule() {
           <div className="flex h-16 shrink-0 items-center justify-center">
             <img
               alt="Your Company"
-              src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
-              className="h-8 w-auto"
+              src="../public/logo-png.png"
+              className="h-12 w-auto rounded-full"
             />
           </div>
           <nav className="mt-8">

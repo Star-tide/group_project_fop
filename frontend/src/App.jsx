@@ -30,7 +30,6 @@ function App() {
 
   return (
     <>
-      {/* <Navbar /> */}
       {isLandingPage && <Landing />}
       <Outlet
         context={{

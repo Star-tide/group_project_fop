@@ -2,11 +2,13 @@ import { createBrowserRouter } from "react-router-dom";
 import { confirmUser } from "./src/utils/auth";
 import { LoginPage } from "./src/Pages/LoginPage";
 import App from "./src/App";
-import { Home } from "./src/components/Home";
+import { Create } from "./src/components/Create";
 import { SignUp } from "./src/components/Signup";
 import { LearningModule } from "./src/Pages/LearningModule";
 import { Course } from "./src/Pages/Course";
 import { CourseDetails } from "./src/Pages/CourseDetails";
+import { Homepage } from "./src/Pages/Homepage"
+import { Navbar } from "./src/components/Navbar";
 
 const router = createBrowserRouter([
   {
@@ -20,7 +22,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/home",
-        element: <Home />,
+        element: <Homepage />,
+      },
+      {
+        path: "/create",
+        element: <Create />,
       },
       {
         path: "/signup",
@@ -32,7 +38,12 @@ const router = createBrowserRouter([
       },
       {
         path: "/courses/",
-        element: <Course />,
+        element: (
+          <>
+            <Navbar />
+            <Course />
+          </>
+      ),
       },
       {
         path: "/course/:course_id/",

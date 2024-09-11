@@ -3,7 +3,7 @@ import { logOut } from "../utils/auth";
 import { CourseCreation } from "./CourseCreate";
 import { Navbar } from "./Navbar"
 
-export const Home = () => {
+export const Create = () => {
   const navigate = useNavigate();
   const { setUser } = useOutletContext();
 
@@ -17,9 +17,6 @@ export const Home = () => {
     <Navbar />
       <div className="container m-auto">
         <CourseCreation />
-        <button onClick={handleLogOut} className="btn btn-primary">
-          Logout
-        </button>
       </div>
     </>
   );
