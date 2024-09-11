@@ -58,7 +58,7 @@ export const CourseCard = (course_id) => {
           </button>
           <button
             onClick={() => handleViewCourseDetails(course_id)}
-            className="bg-secondary p-4 text-white rounded hover:bg-primary"
+            className="bg-primary p-4 text-white rounded hover:bg-secondary"
           >
             View Course Details
           </button>
