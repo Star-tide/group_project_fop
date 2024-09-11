@@ -7,7 +7,7 @@ const navigation = [
   { name: "Features", href: "#" },
   { name: "Company", href: "#" },
 ];
-export default function Example() {
+export function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   return (
     <header className=" bg-secondary">

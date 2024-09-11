@@ -2,7 +2,7 @@ import { createCourse } from "../utils/utils";
 import { useNavigate } from "react-router-dom";
 
 export const CourseCreation = () => {
-  const prerequisites = [{ id: null, name: "None" }];
+  // const prerequisites = [{ id: null, name: "None" }];
   const navigate = useNavigate();
 
   const subcategories = [
@@ -36,13 +36,14 @@ export const CourseCreation = () => {
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
+    <main className="container m-auto justify-center">
+      <form onSubmit={handleSubmit} className="flex justify-center pt-2">
         <div className="space-y-12">
           <div className="border-b border-gray-900/10 pb-12">
-            <h2 className="text-base font-semibold leading-7 text-gray-900">
+            <h2 className="font-semibold text-2xl text-gray-900 text-center">
               Course Creation
             </h2>
-            <p className="mt-1 text-sm leading-6 text-gray-600">
+            <p className="mt-1 text-sm leading-6 text-gray-600 text-center">
               This information will be displayed publicly so be careful what you
               share.
             </p>
@@ -171,6 +172,7 @@ export const CourseCreation = () => {
           </button>
         </div>
       </form>
+    </main>
     </>
   );
 };
