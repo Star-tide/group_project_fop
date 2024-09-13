@@ -72,7 +72,7 @@ Once everything is installed, you can run the backend and frontend servers as ne
 
 ## Additional Information
 
-* Backend: The backend is set up using Django (or Flask, if specified).
+* Backend: The backend is set up using Django
 * Frontend: The frontend is set up using React and Vite.
 
 For any issues or contributions, feel free to open a pull request or contact the maintainers.
